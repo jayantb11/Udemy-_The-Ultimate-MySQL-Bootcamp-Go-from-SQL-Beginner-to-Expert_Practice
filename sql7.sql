@@ -1,0 +1,56 @@
+--  use bookshop;
+--  CREATE TABLE contacts(
+--  name VARCHAR(100) NOT NULL,
+--  phone INT NOT NULL UNIQUE
+--  );
+ 
+--  INSERT INTO contacts (name,phone) values ('billybob',934922)
+-- INSERT INTO contacts (name,phone) values ('billybob',432021)
+-- create table parties (
+-- name Varchar(50),
+-- age INT CHECK (age>18)
+-- );
+-- insert into parties (name,age) values ("Jayant",19)
+-- create table parlindrome(
+-- word VARCHAR(100)
+-- )
+-- create table palindrome(
+-- word VARCHAR(100) CHECK(REVERSE(word)=word)
+-- );
+-- create table user2 (
+-- username VARCHAR(20) NOT NULL,
+-- age INT,
+-- constraint age_check CHECK(age>18)
+-- );
+-- insert into user2 (username,age) values ('jayant',19) 
+-- select * from user2
+-- use bookshop;
+-- create table companies(
+-- supplier_id INT auto_increment,
+-- name VARCHAR(50) NOT NULL,
+-- phone VARCHAR(15) NOT NULL UNIQUE,
+-- address varchar(255) NOT NULL,
+-- PRIMARY KEY (supplier_id),
+-- constraint name_address UNIQUE (name,address) 
+-- );
+-- insert into companies (name,phone,address) values ('jayant','9592633222','1715 sector 23B CHandigarh')
+-- insert into companies (name,phone,address) values ('jayant','+12014238003','1715 sector 23B CHandigarh')
+-- create table houses (
+-- purchase_price INT NOT NULL,
+-- sale_price INT NOT NULL,
+-- constraint pp_gt_sp check(sale_price>purchase_price)
+-- )
+-- insert into houses (purchase_price,sale_price) values (23000,24000)
+-- ALTER TABLE companies
+-- ADD COLUMN phones VARCHAR(15)
+-- ALTER TABLE suppliers
+-- drop COLUMN city
+-- rename table companies to suppliers
+-- ALTER TABLE suppliers
+-- RENAME COLUMN NAME TO biz_name
+-- ALTER TABLE supplier 
+-- CHANGE bussiness biz_name VARCHAR(50) ;
+-- ALTER TABLE suppliers
+-- CHANGE business biz_name VARCHAR(50)
+-- use bookshop;
+-- ALTER TABLE houses ADD constraint positive_price CHECK (purchase_price>=0); 
