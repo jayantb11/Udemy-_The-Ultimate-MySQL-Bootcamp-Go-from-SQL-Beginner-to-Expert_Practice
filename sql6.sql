@@ -1,65 +1,116 @@
--- use bookshop;
--- SELECT COUNT(*) FROM books;
- 
--- SELECT COUNT(author_lname) FROM books;
---  
--- SELECT COUNT(DISTINCT author_lname) FROM books;
--- select COUNT(*),author_lname from books group by author_lname order by 1 DESC
--- select MIN(released_year) from books group by 1
--- select * from books where pages= (SELECT min(pages) from books )
--- select count(*),author_fname,author_lname from books group by 2,3 
--- SELECT CONCAT(author_fname, ' ', author_lname) AS author,  COUNT(*)
--- FROM books
--- GROUP BY author;
--- select author_lname,MIN(released_year) from books group by author_lname
--- SELECT 
--- 	author_lname, 
--- 	COUNT(*) as books_written, 
--- 	MAX(released_year) AS latest_release,
--- 	MIN(released_year)  AS earliest_release,
---       MAX(pages) AS longest_page_count
--- FROM books GROUP BY author_lname;
--- select SUM(pages) from books;
--- select author_lname,SUM(pages) from books group by author_lname
--- select author_lname,COUNT(*),avg(released_year) from books group by author_lname
--- SELECT 
---     released_year, 
---     AVG(stock_quantity), 
---     COUNT(*) FROM books
--- GROUP BY released_year;
--- select sum(stock_quantity) from books
--- select count(*),released_year from books group by 2
--- select count(*),author_lname,author_fname,avg(released_year) from books group by 2,3
--- select concat(author_fname,' ',author_lname) AS 'Full Name' from books where pages=(select MAX(pages) from books)
--- select released_year,COUNT(*) as 'books',AVG(pages) from books group by 1
--- use bookshop; 
--- select * from states
--- CREATE TABLE product
--- (amount DECIMAL(5,2));
--- insert into product (amount) values (4.50)
--- select 
--- CREATE TABLE number(x float,y decimal)
--- insert into number (x,y) values (1.23,1.23)
--- use bookshop;
--- CREATE TABLE people(
--- name VARCHAR(100),
--- birthdate DATE,
--- birthtime time,
--- birthdt datetime
--- )
--- INSERT INTO people (name,birthdate,birthtime,birthdt) values ('Elton','2000-12-25','16:00:00','2000-12-25 11:00:00')
--- INSERT INTO people (name, birthdate, birthtime, birthdt)
--- VALUES ('Lulu', '1985-04-11', '9:45:10', '1985-04-11 9:45:10');
---  
--- INSERT INTO people (name, birthdate, birthtime, birthdt)
--- VALUES ('Juan', '2020-08-15', '23:59:00', '2020-08-15 23:59:00');
--- INSERT INTO people (name, birthdate, birthtime, birthdt)
--- VALUES ('Hazel', CURDATE(), CURTIME(), NOW());
--- select curdate(),current_time(),NOW()
--- select birthdate from people 
--- select birthdate,day(birthdate) from people;
--- select dayofweek(birthdate) from people;
--- select monthname(birthdate) from people;
+-- Switch to the 'bookshop' database
+use bookshop;
+-- Count the total number of records in the 'books' table
+SELECT COUNT(*) FROM books;
+
+-- Count the number of non-null values in the 'author_lname' column
+SELECT COUNT(author_lname) FROM books;
+
+-- Count the number of distinct values in the 'author_lname' column
+SELECT COUNT(DISTINCT author_lname) FROM books;
+
+-- Count the number of books for each author's last name and order the result in descending order
+SELECT COUNT(*), author_lname FROM books GROUP BY author_lname ORDER BY 1 DESC;
+
+-- Select the minimum released year for each author's last name
+SELECT MIN(released_year) FROM books GROUP BY author_lname;
+
+-- Select all columns from the 'books' table where the number of pages is equal to the minimum number of pages
+SELECT * FROM books WHERE pages = (SELECT MIN(pages) FROM books);
+
+-- Count the number of books for each author's first and last name
+SELECT COUNT(*), author_fname, author_lname FROM books GROUP BY 2, 3;
+
+-- Select the concatenated author's full name and count of books for each author
+SELECT CONCAT(author_fname, ' ', author_lname) AS author, COUNT(*) FROM books GROUP BY author;
+
+-- Select the author's last name and the minimum released year for each author
+SELECT author_lname, MIN(released_year) FROM books GROUP BY author_lname;
+
+-- Select various statistics for each author's last name, including the number of books written, latest release year, earliest release year, and longest page count
+SELECT 
+    author_lname, 
+    COUNT(*) as books_written, 
+    MAX(released_year) AS latest_release,
+    MIN(released_year)  AS earliest_release,
+    MAX(pages) AS longest_page_count
+FROM books GROUP BY author_lname;
+
+-- Select the sum of all page counts in the 'books' table
+SELECT SUM(pages) FROM books;
+
+-- Select the author's last name and the sum of page counts for each author
+SELECT author_lname, SUM(pages) FROM books GROUP BY author_lname;
+
+-- Select the author's last name, count of books, and average released year for each author
+SELECT author_lname, COUNT(*), AVG(released_year) FROM books GROUP BY author_lname;
+
+-- Select the released year, average stock quantity, and count of books for each released year
+SELECT 
+    released_year, 
+    AVG(stock_quantity), 
+    COUNT(*) 
+FROM books
+GROUP BY released_year;
+
+-- Select the sum of all stock quantities in the 'books' table
+SELECT SUM(stock_quantity) FROM books;
+
+-- Select the count of books and released year for each released year
+SELECT COUNT(*), released_year FROM books GROUP BY 2;
+
+-- Select the count of books, author's last name, author's first name, and average released year for each author
+SELECT COUNT(*), author_lname, author_fname, AVG(released_year) FROM books GROUP BY 2, 3;
+
+-- Select the concatenated full name of the author for the book with the maximum number of pages
+SELECT CONCAT(author_fname, ' ', author_lname) AS 'Full Name' FROM books WHERE pages = (SELECT MAX(pages) FROM books);
+
+-- Select the released year, count of books, and average number of pages for each released year
+SELECT released_year, COUNT(*) as 'books', AVG(pages) FROM books GROUP BY 1;
+
+-- Switch to the 'bookshop' database
+-- Select all columns from the 'states' table
+-- SELECT * FROM states;
+
+-- Create a new table 'product' with a column 'amount'
+-- CREATE TABLE product (amount DECIMAL(5,2));
+
+-- Insert a record into the 'product' table
+-- INSERT INTO product (amount) VALUES (4.50);
+
+-- Create a new table 'number' with columns 'x' and 'y'
+-- CREATE TABLE number(x float, y decimal);
+
+-- Insert a record into the 'number' table
+-- INSERT INTO number (x, y) VALUES (1.23, 1.23);
+
+-- Switch to the 'bookshop' database
+-- Create a new table 'people' with columns 'name', 'birthdate', 'birthtime', and 'birthdt'
+-- CREATE TABLE people(name VARCHAR(100), birthdate DATE, birthtime TIME, birthdt DATETIME);
+
+-- Insert records into the 'people' table
+-- INSERT INTO people (name, birthdate, birthtime, birthdt) VALUES 
+--    ('Elton', '2000-12-25', '16:00:00', '2000-12-25 11:00:00'),
+--    ('Lulu', '1985-04-11', '9:45:10', '1985-04-11 9:45:10'),
+--    ('Juan', '2020-08-15', '23:59:00', '2020-08-15 23:59:00'),
+--    ('Hazel', CURDATE(), CURTIME(), NOW());
+
+-- Select current date, current time, and current timestamp
+-- SELECT CURDATE(), CURRENT_TIME(), NOW();
+
+-- Select birthdate from the 'people' table
+-- SELECT birthdate FROM people;
+
+-- Select birthdate and the day of the month from the 'people' table
+-- SELECT birthdate, DAY(birthdate) FROM people;
+
+-- Select the day of the week from the 'people' table
+-- SELECT DAYOFWEEK(birthdate) FROM people;
+
+-- Select the month name from the 'people' table
+-- SELECT MONTHNAME(birthdate) FROM people;
+
+-- Select various components of the birth date and time from the 'people' table
 -- SELECT 
 --     birthdt,
 --     MONTH(birthdt),
@@ -67,54 +118,9 @@
 --     HOUR(birthdt),
 --     MINUTE(birthdt)
 -- FROM people;
--- SELECT birthdate, DATE_FORMAT(birthdate, '%a %b %D') FROM people;
---  
--- SELECT birthdt, DATE_FORMAT(birthdt, '%H:%i') FROM people;
---  
--- SELECT birthdt, DATE_FORMAT(birthdt, 'BORN ON: %r') FROM people;
--- select DATEDIFF(curdate(),birthdate) from people;
--- select date_add(curdate(),interval 1 year)
--- create table captions(
--- text varchar(150),
--- created_at timestamp default current_timestamp);
 
--- create table captions2(
--- text varchar(150),
--- created_at timestamp default current_timestamp);
--- CREATE TABLE captions3 (
---   text VARCHAR(150),
---   created_at TIMESTAMP default CURRENT_TIMESTAMP,
---   updated_at TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
--- );
--- SELECT current_time();
--- SELECT dayofweek(current_day());
--- use bookshop;
--- select title,author_lname from books where author_lname!='Gaiman'
--- select title from books where title not like '% %'
--- select title ,author_fname from books where author_fname=''
--- select title,author_fname from books where title not like 'dav%'
--- select * from books where released_year>2005
--- select * from books where pages>500
--- select 80>40;
--- select title,released_year from books where released_year <2000
--- select title,released_year from books where released_year <= 2010
--- select * from books where released_year%2=0
--- select released_year,title,
--- CASE
--- WHEN released_year >=2000 then 'modern_lit'
--- else '20th centery lit'
--- END as 'genre'
--- from books
--- select * from books where released_year<1980
--- select * from books where author_lname='Eggers' or author_lname='Chabon'
--- select * from books where released_year>2000 AND author_lname='Lahiri'
--- select * from books where author_lname='Eggers' or author_lname='Chabon'
--- select * from books where pages between 100 AND 200
--- select * from books where author_lname like 'C%'  OR author_lname like 'S%'
--- select title,author_lname,
--- CASE
--- WHEN title like '%stories%' THEN 'short stories'
--- WHEN title='Just Kids' OR title='A Heartbreaking Work of Staggering Genius' THEN 'Menior'
--- ELSE 'NOVEL' 
--- END as 'type' from books
-select author_fname,author_lname,concat(count(*),' ','books') AS total from books group by 1,2
+-- Select birthdate and a formatted date from the 'people' table
+-- SELECT birthdate, DATE_FORMAT(birthdate, '%a %b %D') FROM people;
+
+-- Select birthdt and a formatted time from the 'people' table
+-- SELECT birthdt, DATE
